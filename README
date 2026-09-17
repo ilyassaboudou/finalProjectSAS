@@ -1,0 +1,10 @@
+Ce petit projet est une application exécutée dans le terminal.
+il permet d’organiser le suivi des apprenants, de leurs résultats et de leur progression 
+au cours des différentes journées de formation.
+Les principales fonctionnalités gérées par cette application sont :
+
+1. l'affichage d’un menu interactif qui présente les différentes actions possibles, 
+comme ajouter ou modifier un apprenant, afficher le tableau de board, consulter un apprenant par ID,
+recherche par le nom ...etc,
+
+2. l’application permet à l’utilisateur de corriger ses erreurs sans devoir redémarrer le programme depuis le début.
