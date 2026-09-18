@@ -2,32 +2,32 @@
 export let apprenants = []
 
 // ça va afficher la liste des apprenants
-export function afficherListeApprenants() {
+export function afficherListeApprenants(ansiFn) {
   if (apprenants.length == 0) {
-    console.log(`\u001b[42mAucun apprenant enregistré!\u001b[0m`)
+    console.log(ansiFn(42, "Aucun apprenant enregistré!"))
     return
   }
   for (let a of apprenants) {
     let { progression, niveau } = calculerProgression(a);
-    console.log(`\x1b[32m${a.id}. ${a.nomComplet}\x1b[0m — ${a.ville} — ${progression}% — ${niveau}`)
+    console.log(ansiFn(32, `${a.id}. ${a.nomComplet}`) + `, ${a.ville}, ${progression}%, ${niveau}`)
   }
 }
 
 // cette fonction fais la calculation de la progression d'un apprenant
-function calculerProgression(apprenant) {
-    let exercicesTermines = 0
-    let exercicesProposes = 0
-    let challengesTermines = 0
+export function calculerProgression(apprenant) {
+  let exercicesTermines = 0
+  let exercicesProposes = 0
+  let challengesTermines = false
 
-    for (let res of apprenant.resultats) {
-        exercicesTermines += res.exercicesTermines
-        exercicesProposes += res.totalExercices
-        if (res.challengeTermine) challengesTermines++
-    }
+  for (let res of apprenant.resultats) {
+    exercicesTermines += res.exercicesTermines
+    exercicesProposes += res.totalExercices
+    if (res.challengeTermine) challengesTermines = true
+  }
 
-    let progression = exercicesProposes ? Math.round(exercicesTermines / exercicesProposes * 100) : 0
-    let joursRenseignes = apprenant.resultats.length
-    let niveau = progression >= 80 ? "Solide" : progression >= 50 ? "En progression" : "À renforcer"
+  let progression = exercicesProposes ? Math.round(exercicesTermines / exercicesProposes * 100) : 0
+  let joursRenseignes = apprenant.resultats.length
+  let niveau = progression >= 80 ? "Solide" : progression >= 50 ? "En progression" : "À renforcer"
 
-    return { exercicesTermines, exercicesProposes, progression, challengesTermines, joursRenseignes, niveau }
+  return { exercicesTermines, exercicesProposes, progression, challengesTermines, joursRenseignes, niveau }
 }

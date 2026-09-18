@@ -1,38 +1,37 @@
 
-import { prompt } from "../index.js"
-
 // fonction ajoute un nouvel apprenant au list 'apprenants'
-export function ajouterApprenant(apprenants) {
-    
+export function ajouterApprenant(apprenants, ansiFn, prompt) {
+
     let nomComplet, ville;
-
-    for (;;) {
+    for (; ;) {
         nomComplet = prompt("Nom et prénom : ")
+        nomComplet = nomComplet.trim().replace(/\s+/g, ' ')
         if (nomComplet.toLowerCase() === "q") return
-        if (NomCorrecte(nomComplet.trim())) break
-        console.log("\x1b[41mLe nom n'est pas valide !\x1b[0m")
+        if (NomCorrecte(nomComplet)) break
+        console.log(ansiFn(41, "Le nom n'est pas valide !"))
         console.log("(q: quitter)")
     }
 
-    for (;;){
+    for (; ;) {
         ville = prompt("Ville: ")
-        if(ville.toLowerCase() === "q") return
-        if (VilleCorrecte(ville.trim())) break
-        console.log("\u001b[41mLa ville n'est pas valide !\u001b[0m")
+        ville = ville.trim().replace(/\s+/g, ' ')
+        if (ville.toLowerCase() === "q") return
+        if (VilleCorrecte(ville)) break
+        console.log(ansiFn(41, "La ville n'est pas valide !"))
         console.log("(q: quitter)")
     }
 
-    let newAppr = { id: apprenants.length + 1, nomComplet: nomComplet.trim(), ville: ville.trim(), resultats: []};
+    let newAppr = { id: apprenants.length + 1, nomComplet: nomComplet, ville: ville, resultats: [] };
     apprenants.push(newAppr);
-    console.log(`\u001b[42mApprenant "${newAppr.nomComplet}" ajouté avec succès.\u001b[0m`)
+    console.log(ansiFn(42, `Apprenant "${newAppr.nomComplet}" ajouté avec succès.`))
 }
 
-// si le nom n'est pas valid return false
+// si le nom n'est pas valid return false si non return true
 function NomCorrecte(nom) {
-    return nom && nom.length < 30 && /^[a-zA-Z\s]+$/.test(nom) && nom.split(/\s+/).length >= 2 
+    return nom && nom.length < 30 && /^[a-zA-ZÀ-ÿ\s]+$/.test(nom) && nom.split(/\s+/).length >= 2
 }
 
-// si le nom de la ville n'est pas valid return false
+// si le nom de la ville n'est pas valid return false si non return true
 function VilleCorrecte(ville) {
-    return ville && ville.length < 20 && /^[a-zA-Z\s]+$/.test(ville) 
+    return ville && ville.length < 20 && /^[a-zA-ZÀ-ÿ\s]+$/.test(ville)
 }
