@@ -2,11 +2,12 @@
 export let apprenants = []
 
 // ça va afficher la liste des apprenants
-export function afficherListeApprenants(apprens ,ansiFn) {
+export function afficherListeApprenants(apprens, ansiFn) {
   if (apprens.length == 0) {
     console.log(ansiFn(42, "Aucun apprenant enregistré!"))
     return
   }
+
   for (let a of apprens) {
     let { progression, niveau } = calculerProgression(a);
     afficherApprenant(a, progression, niveau, ansiFn)
@@ -17,12 +18,12 @@ export function afficherListeApprenants(apprens ,ansiFn) {
 export function calculerProgression(apprenant) {
   let exercicesTermines = 0
   let exercicesProposes = 0
-  let challengesTermines = false
+  let challengesTermines = 0
 
   for (let res of apprenant.resultats) {
     exercicesTermines += res.exercicesTermines
     exercicesProposes += res.totalExercices
-    if (res.challengeTermine) challengesTermines = true
+    if (res.challengeTermine) challengesTermines++
   }
 
   let progression = exercicesProposes ? Math.round(exercicesTermines / exercicesProposes * 100) : 0
@@ -32,6 +33,7 @@ export function calculerProgression(apprenant) {
   return { exercicesTermines, exercicesProposes, progression, challengesTermines, joursRenseignes, niveau }
 }
 
+// afficher les apprenants
 export function afficherApprenant(a, progression, niveau, ansiFn) {
-  console.log(ansiFn(32, `${a.id}. ${a.nomComplet}`) + `, ${a.ville}, ${progression}%, ${niveau}`)
+  console.log(ansiFn(32, `${a.id}. ${a.nomComplet}`) + `: ${a.ville}, ${progression}%, ${niveau}`)
 }

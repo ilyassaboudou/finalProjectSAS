@@ -1,3 +1,4 @@
+// ajoute ou modifier les resultat d'une journée pour un apprenant
 export function ajouterOuModifierResultat(apprenants, ansiFn, prompt) {
 
     let id = Number(prompt("Id de l'apprenant : "));

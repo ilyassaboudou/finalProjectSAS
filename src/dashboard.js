@@ -1,3 +1,5 @@
+
+// afficher tableau de bord avec les statistiques générales de chaque apprenant
 export function afficherTableauDeBord(apprenants, ansiFn, calculerProgression) {
   if (apprenants.length === 0) {
     console.log(ansiFn(42, "Aucun apprenant enregistré !"))
@@ -27,11 +29,9 @@ export function afficherTableauDeBord(apprenants, ansiFn, calculerProgression) {
     }
   }
 
-  // afficher les informations générales du tableau de bord
-  let moyenneGroupe = Math.floor(sommeProgressions / apprenants.length);
   console.log(`\n---------- ${ansiFn(33, "TABLEAU DE BORD")} ----------`);
   console.log(`Nombre total d'apprenants : ${apprenants.length}`);
-  console.log(`Progression moyenne : ${moyenneGroupe}%`);
+  console.log(`Progression moyenne : ${Math.floor(sommeProgressions / apprenants.length)}%`);
   console.log(`Solide : ${nbSolide}`);
   console.log(`En progression : ${nbEnProgression}`);
   console.log(`À renforcer : ${nbARenforcer}`);
@@ -48,6 +48,6 @@ export function afficherTableauDeBord(apprenants, ansiFn, calculerProgression) {
       `${progression}% ${niveau}, ` +
       `${joursRenseignes}/7 jour${s} présent${s}, ` +
       `${exercicesTermines}/${exercicesProposes} exercises fait, ` +
-      `${challengesTermines ? "challenge fait" : "challenge non fait"}`)
+      `${challengesTermines} challenges faits`)
   }
 }

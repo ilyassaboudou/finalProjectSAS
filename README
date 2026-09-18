@@ -1,10 +1,20 @@
 Ce petit projet est une application exécutée dans le terminal.
-il permet d’organiser le suivi des apprenants, de leurs résultats et de leur progression 
-au cours des différentes journées de formation.
-Les principales fonctionnalités gérées par cette application sont :
+il permet d’organiser le suivi des apprenants, de leurs résultats 
+et de leur progression au cours des différentes journées de formation.
+le programme permet de :
 
-1. l'affichage d’un menu interactif qui présente les différentes actions possibles, 
-comme ajouter ou modifier un apprenant, afficher le tableau de board, consulter un apprenant par ID,
-recherche par le nom ...etc,
+1. l'affichage d’un menu interactif qui présente les différentes actions 
+possibles, comme ajouter ou modifier un apprenant, afficher le tableau de 
+board, consulter un apprenant par ID, recherche par le nom ...etc,
 
-2. l’application permet à l’utilisateur de corriger ses erreurs sans devoir redémarrer le programme depuis le début.
+2. l’application permet à l’utilisateur de corriger ses erreurs de saisie sans 
+devoir recommencer depuis le début, il peux egalement modifier les information
+d'un apprenant.
+
+3. le calcul de la progression de chaque apprenant à partir du nombre d’exercices 
+terminés et du nombre total d’exercices proposés, et l’affichage du niveau de 
+progression de chaque apprenant : solide, en progression ou à renforcer.
+
+
+4. prompt-sync est utilisé pour gérer la saisie de l’utilisateur, et les 
+différentes fonctions sont également testées afin de vérifier leur bon fonctionnement.

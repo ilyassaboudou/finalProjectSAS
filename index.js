@@ -1,21 +1,19 @@
 import promptSync from "prompt-sync"
 import { apprenants, calculerProgression } from "./src/apprenants.js";
-import { ajouterApprenant } from "./src/ajouter-apprenant.js";
+import { ajouterApprenant } from "./src/ajouterapprenant.js";
 import { afficherListeApprenants } from "./src/apprenants.js";
-import { consulterParId, afficherParId } from "./src/consulter-par-id.js";
 import { ansi, Menu } from "./src/aide.js";
-import { ajouterOuModifierResultat } from "./src/ajouter-modifier-res.js";
-import { afficherTableauDeBord } from "./src/tableau-board.js";
-import { rechercherParNom } from "./src/recherche-nom.js";
+import { ajouterOuModifierResultat } from "./src/resultats.js";
+import { afficherTableauDeBord } from "./src/dashboard.js";
+import { rechercherParNom, consulterParId } from "./src/recherche.js";
 import { trierParNom, trierParProgression } from "./src/trier.js";
-
 import fs from "fs"
-let prompt = promptSync();
 
 function app() {
 
   let data_test = fs.readFileSync("./test/apprenants.json", "utf-8")
   apprenants.push(...JSON.parse(data_test))
+  let prompt = promptSync()
 
   loop:
   for (; ;) {
@@ -39,7 +37,7 @@ function app() {
         consulterParId(apprenants, calculerProgression, ansi, prompt)
         break;
       case "6":
-        rechercherParNom(apprenants, calculerProgression, ansi, prompt, afficherParId)
+        rechercherParNom(apprenants, calculerProgression, ansi, prompt)
         break;
       case "7":
         let s = trierParProgression(apprenants, calculerProgression)
