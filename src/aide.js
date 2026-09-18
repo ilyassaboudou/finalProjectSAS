@@ -9,12 +9,11 @@ export function Menu() {
 1. Tableau de bord
 2. Liste des apprenants
 3. Ajouter un apprenant
-4. Consulter par ID
-5. Ajouter/modifier un résultat d'une journée
+4. Ajouter/modifier un résultat d'une journée
+5. Consulter par ID
 6. Rechercher par nom
-7. Filtrer par niveau
-8. Trier par progression
-9. Trier par nom
+7. Trier par progression
+8. Trier par nom
 0. Quitter
 `);
 }

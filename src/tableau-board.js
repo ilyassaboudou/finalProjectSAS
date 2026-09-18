@@ -1,6 +1,6 @@
 export function afficherTableauDeBord(apprenants, ansiFn, calculerProgression) {
   if (apprenants.length === 0) {
-    console.log(ansiFn(41, "Aucun apprenant enregistré !"));
+    console.log(ansiFn(42, "Aucun apprenant enregistré !"))
     return;
   }
 

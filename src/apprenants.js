@@ -2,14 +2,14 @@
 export let apprenants = []
 
 // ça va afficher la liste des apprenants
-export function afficherListeApprenants(ansiFn) {
-  if (apprenants.length == 0) {
+export function afficherListeApprenants(apprens ,ansiFn) {
+  if (apprens.length == 0) {
     console.log(ansiFn(42, "Aucun apprenant enregistré!"))
     return
   }
-  for (let a of apprenants) {
+  for (let a of apprens) {
     let { progression, niveau } = calculerProgression(a);
-    console.log(ansiFn(32, `${a.id}. ${a.nomComplet}`) + `, ${a.ville}, ${progression}%, ${niveau}`)
+    afficherApprenant(a, progression, niveau, ansiFn)
   }
 }
 
@@ -30,4 +30,8 @@ export function calculerProgression(apprenant) {
   let niveau = progression >= 80 ? "Solide" : progression >= 50 ? "En progression" : "À renforcer"
 
   return { exercicesTermines, exercicesProposes, progression, challengesTermines, joursRenseignes, niveau }
+}
+
+export function afficherApprenant(a, progression, niveau, ansiFn) {
+  console.log(ansiFn(32, `${a.id}. ${a.nomComplet}`) + `, ${a.ville}, ${progression}%, ${niveau}`)
 }

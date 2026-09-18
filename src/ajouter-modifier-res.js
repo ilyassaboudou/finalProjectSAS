@@ -30,12 +30,12 @@ export function ajouterOuModifierResultat(apprenants, ansiFn, prompt) {
             case "q": return;
             default:
                 if (!/^\d+$/.test(res.totalExercices)) {
-                    console.log(ansiFn(31, "Le total d'exercices doit être un nombre."));
+                    console.log(ansiFn(31, "Le total d'exercices doit être un nombre valide."));
                     continue;
                 }
                 res.totalExercices = Number(res.totalExercices);
-                if ( res.totalExercices > 100 ) {
-                    console.log(ansiFn(31, "Nombre des exercises proposé c'est plus grand"));
+                if ( res.totalExercices > 100 || res.totalExercices <= 0 ) {
+                    console.log(ansiFn(31, "Nombre des exercises proposé c'est pas valide"));
                     continue;
                 }
                 break;
@@ -55,7 +55,8 @@ export function ajouterOuModifierResultat(apprenants, ansiFn, prompt) {
                 }
                 res.exercicesTermines = Number(res.exercicesTermines);
                 if (res.exercicesTermines > res.totalExercices) {
-                    console.log(msg);
+                    console.log(ansiFn(31, "Les exercices terminés ne peuvent pas dépasser le total proposé."));
+                    continue;
                 }
                 break;
         }
@@ -82,17 +83,15 @@ export function ajouterOuModifierResultat(apprenants, ansiFn, prompt) {
         break;
     }
 
-    let result = apprenant.resultats.filter((r) => r.jour === res.jour);
-    
-    if (result.length > 0) {
-        if (!result[0].challengeTermine && !res.challengeTermine) {
-            result[0].exercicesTermines = res.exercicesTermines;
-            result[0].totalExercices = res.totalExercices;
-            result[0].challengeTermine = res.challengeTermine;
+    let result = apprenant.resultats.find((r) => r.jour == res.jour)
 
-            console.log(ansiFn(32, `Résultat du jour ${res.jour} modifié.`));
-            return;
-        }
+    if (result) {
+        result.exercicesTermines = res.exercicesTermines
+        result.totalExercices = res.totalExercices
+        result.challengeTermine = res.challengeTermine
+
+        console.log(ansiFn(32, `Résultat du jour ${res.jour} modifié.`))
+        return;
     }
 
     apprenant.resultats.push(res);
