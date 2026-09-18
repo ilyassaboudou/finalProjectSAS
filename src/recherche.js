@@ -4,13 +4,13 @@ export function rechercherParNom(apprenants, calculerProgressionFn, ansiFn, prom
     let text = prompt("Nom à rechercher : ")
     text = text.trim().toLowerCase()
 
-    let res = apprenants.filter((apprenant) => apprenant.nomComplet.toLowerCase().startsWith(text))
+    let res = apprenants.filter((apprenant) => apprenant.nomComplet.toLowerCase().includes(text))
     if (res.length == 0) {
         console.log(ansiFn(31, "Aucun apprenant trouvé"))
         return
     }
 
-    let i =0;
+    let i = 0;
     console.log()
     for (let apprenant of res) {
         afficherParId(apprenant, calculerProgressionFn, ansiFn)
@@ -40,7 +40,41 @@ export function afficherParId(apprenant, calculerProgressionFn, ansiFn) {
     console.log(`${ansiFn(32, "Exercices terminés :")} ${exercicesTermines}`)
     console.log(`${ansiFn(32, "Exercices proposés :")} ${exercicesProposes}`)
     console.log(`${ansiFn(32, "Progression :")} ${progression}%`)
-    console.log(`${ansiFn(32, "Challenges terminés :")} ${challengesTermines ? "oui" : "non"}`)
+    console.log(`${ansiFn(32, "Challenges terminés :")} ${challengesTermines}`)
     console.log(`${ansiFn(32, "Journées renseignées :")} ${joursRenseignes}`)
     console.log(`${ansiFn(32, "Niveau :")} ${niveau}`)
+}
+
+
+export function rechercheParNiveau(apprenants, calculerProgressionFn, ansiFn, prompt, afficherApprenant) {
+
+    let niveau = prompt("Niveau (solide(s) / en progression(ep) / à renforcer(ar)) : ").trim()
+
+    switch(niveau) {
+        case "ar":
+            niveau = "à renforcer"
+            break;
+        case "ep":
+            niveau = "en progression"
+            break;
+        case "s":
+            niveau = "solide"
+    }
+    
+    let valids = ["solide", "en progression", "à renforcer"]
+
+    if (!valids.includes(niveau)) {
+        console.log(ansiFn(31, "Niveau invalide."))
+        return
+    }
+
+    let resultats = apprenants.filter((a) => calculerProgressionFn(a).niveau.toLowerCase() == niveau)
+    if (resultats.length === 0) {
+        console.log(ansiFn(33, `Aucun apprenant au niveau "${niveau}".`))
+        return
+    }
+    for (let a of resultats) {
+        let { progression, niveau } = calculerProgressionFn(a)
+        afficherApprenant(a, progression, niveau, ansiFn)
+    }
 }

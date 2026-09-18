@@ -1,11 +1,11 @@
 import promptSync from "prompt-sync"
-import { apprenants, calculerProgression } from "./src/apprenants.js";
+import { afficherApprenant, apprenants, calculerProgression } from "./src/apprenants.js";
 import { ajouterApprenant } from "./src/ajouterapprenant.js";
 import { afficherListeApprenants } from "./src/apprenants.js";
 import { ansi, Menu } from "./src/aide.js";
 import { ajouterOuModifierResultat } from "./src/resultats.js";
 import { afficherTableauDeBord } from "./src/dashboard.js";
-import { rechercherParNom, consulterParId } from "./src/recherche.js";
+import { rechercherParNom, consulterParId, rechercheParNiveau } from "./src/recherche.js";
 import { trierParNom, trierParProgression } from "./src/trier.js";
 import fs from "fs"
 
@@ -46,6 +46,9 @@ function app() {
       case "8":
         let sorted = trierParNom(apprenants)
         afficherListeApprenants(sorted, ansi)
+        break;
+      case "9":
+        rechercheParNiveau(apprenants, calculerProgression, ansi, prompt, afficherApprenant)
         break;
       case "0":
         console.log(ansi(42, "Au revoir!"))

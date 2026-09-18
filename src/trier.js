@@ -12,3 +12,4 @@ export function trierParProgression(apprenants, calculerProgressionFn) {
         calculerProgressionFn(b).progression - calculerProgressionFn(a).progression
     );
 }
+

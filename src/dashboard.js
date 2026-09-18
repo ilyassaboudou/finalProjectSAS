@@ -31,23 +31,29 @@ export function afficherTableauDeBord(apprenants, ansiFn, calculerProgression) {
 
   console.log(`\n---------- ${ansiFn(33, "TABLEAU DE BORD")} ----------`);
   console.log(`Nombre total d'apprenants : ${apprenants.length}`);
-  console.log(`Progression moyenne : ${Math.floor(sommeProgressions / apprenants.length)}%`);
+  console.log(`Progression moyenne : ${Math.round(sommeProgressions / apprenants.length)}%`);
   console.log(`Solide : ${nbSolide}`);
   console.log(`En progression : ${nbEnProgression}`);
   console.log(`À renforcer : ${nbARenforcer}`);
-  console.log();
+
+  let tableau = []
 
   // afficher les informations de chaque apprenant
   for (let apprenant of apprenants) {
 
-    let { exercicesTermines, exercicesProposes, progression, challengesTermines, joursRenseignes, niveau } = calculerProgression(apprenant);
+    let { progression, niveau } = calculerProgression(apprenant);
+    let jExists = apprenant.resultats.map((r) => r.jour)
+    let jManquants = [1, 2, 3, 4, 5, 6, 7].filter((j) => !jExists.includes(j))
+    let challengesManquants = apprenant.resultats.filter((r) => !r.challengeTermine).map((r) => r.jour);
+    tableau.push({
+      ID: apprenant.id,
+      Nom: apprenant.nomComplet,
+      Progression: `${progression}%`,
+      Niveau: niveau,
+      "Jours manquants": jManquants.join(", ") || "Aucun",
+      "Challenges manquants": challengesManquants.join(", ") || "Aucun"
+    })
 
-    let s = joursRenseignes <= 1 ? "" : "s"
-    console.log(
-      `${ansiFn(36, `#${apprenant.id}`)} ${apprenant.nomComplet}, ` +
-      `${progression}% ${niveau}, ` +
-      `${joursRenseignes}/7 jour${s} présent${s}, ` +
-      `${exercicesTermines}/${exercicesProposes} exercises fait, ` +
-      `${challengesTermines} challenges faits`)
   }
+  console.table(tableau);
 }
