@@ -14,6 +14,7 @@ export function Menu() {
 6. Rechercher par nom
 7. Trier par progression
 8. Trier par nom
+9. Recherche par niveau
 0. Quitter
 `);
 }
